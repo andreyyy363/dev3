@@ -42,8 +42,8 @@ jobs:
           command: bundle exec rubocop
       - run:
           name: Запуск автоматизованих тестів (Minitest)
-          # Впаде, якщо тест не пройде
-          command: bin/rails test
+          # Запускаємо через bundle exec
+          command: bundle exec rails test
 
   # Етап 2: Збірка та публікація Docker-образу
   build-and-push:
