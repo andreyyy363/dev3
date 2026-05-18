@@ -29,7 +29,9 @@ jobs:
             - v1-dependencies-
       - run:
           name: Встановлення Ruby Gems
-          command: bundle install --jobs=4 --retry=3 --path vendor/bundle
+          command: |
+            bundle config set --local path 'vendor/bundle'
+            bundle install --jobs=4 --retry=3
       - save_cache:
           paths:
             - ./vendor/bundle
@@ -72,10 +74,10 @@ workflows:
     jobs:
       - test-and-lint
       - build-and-push:
-          # Запускати збірку образу ТІЛЬКИ після успішного проходження тестів
+          # Запускати збірку образу тільки після успішного проходження тестів
           requires:
             - test-and-lint
-          # Виконувати ТІЛЬКИ при змінах у гілці main
+          # Виконувати тільки при змінах у гілці main
           filters:
             branches:
               only: main
